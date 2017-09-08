@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#11012d">
+  <title>Twitter Realtime Seatch</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="manifest" href="assets/manifest.json">
+  <link rel="mask-icon" href="assets/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+
+  <meta name="description" content="Search Tweets in realtime.">
+	<meta name="keywords" content="">
+
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Oxygen');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body{
+    height: 100%;
+    font-size: 62.5%;
+  }
+
+  body {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 1.2rem;
+    color: #bbb;
+    background: rgb(54,39,81); /* Old browsers */
+  background: -webkit-linear-gradient(rgba(54,39,81,1) 0%, rgba(38,58,81,1) 100%);
+  background: -o-linear-gradient(rgba(54,39,81,1) 0%, rgba(38,58,81,1) 100%);
+  background: linear-gradient(rgba(54,39,81,1) 0%, rgba(38,58,81,1) 100%); /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */ /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+
+  }
+
+  header, section, footer{
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header{
+    height: 50px;
+    position: relative;
+    top: 0;
+    overflow: visible;
+    background: rgb(0,0,0); /* Old browsers */
+  background: -webkit-linear-gradient(rgba(0,0,0,1) 0%, rgba(19,1,51,1) 100%);
+  background: -o-linear-gradient(rgba(0,0,0,1) 0%, rgba(19,1,51,1) 100%);
+  background: linear-gradient(rgba(0,0,0,1) 0%, rgba(19,1,51,1) 100%); /* FF3.6-15 */ /* Chrome10-25,Safari5.1-6 */ /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  z-index: 50;
+  }
+
+  header #bar{
+    width: 50px;
+    height: 50px;
+    padding: 12.5px 10px;
+    box-sizing: border-box;
+    float: left;
+    position: relative;
+    z-index: 100;
+  }
+
+  header #bar svg{
+    fill: #bbb;
+  }
+
+  header nav{
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: auto;
+    z-index: 100;
+  }
+
+  header nav ul li{
+    font-size: 14px;
+  }
+
+  header nav ul li:after{
+    width: 90%;
+    content: "";
+    height: 0;
+    display: block;
+    border-bottom: 1px solid #444;
+    margin: auto;
+  }
+
+  header nav ul li a{
+    width: 100%;
+    color: #ddd;
+    display: block;
+    text-decoration: none;
+    padding: 20px 0px;
+    padding-left: 20px;
+  }
+
+  header nav ul li.external i{
+    text-align: right;
+    margin-left: 1em;
+  }
+
+  header .other{
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  header .fb-share-button,
+  header .twitter-share-button {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px;
+  }
+
+  header .wrap-form{
+    float: right;
+    width: 100%;
+    height: 100%;
+    margin-left: -50px;
+    padding-left: 50px;
+  }
+
+  header .wrap-form form{
+    width: 100%;
+    height: 100%;
+  }
+
+  header .wrap-form input{
+    width: 80%;
+    height: 30px;
+    background: none;
+    border: none;
+    color: #bbb;
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: normal;
+    font-family: sans-serif;
+    letter-spacing: .1em;
+    display: block;
+    margin: 5px auto;
+    border-bottom: 1px solid #888;
+    -webkit-appearance: none;
+  }
+
+  header .wrap-form input:focus {
+    outline: 0;
+    border-color: none;
+  }
+
+  #tweet{
+    height:calc(100% - 50px);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  #tweet ul{
+    overflow: visible;
+    overflow: auto;
+    height: 100%;
+    padding-top: 10px;
+    box-sizing: border-box;
+  }
+
+  #tweet ul li{
+    padding: 10px 0;
+    overflow: hidden;
+  }
+
+  #tweet ul li:nth-child(2n){
+    background: rgba(255,255,255,0.1);
+  }
+
+  #tweet ul li a{
+    text-decoration: none;
+    color: #ddd;
+  }
+
+  #tweet ul li img{
+    border-radius: 50%;
+    margin: 0 0 0 10px;
+    float: left;
+  }
+
+  #tweet ul li .inner{
+    float: right;
+    width: 100%;
+    margin-left: -60px;
+    padding-left: 70px;
+  }
+
+  #opt{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    z-index: 50;
+    opacity: 0.9;
+  }
+
+  #opt svg{
+    fill: #bbb;
+    transition: all .2s ease-out 0s;
+  }
+
+  #opt.active svg{
+    fill: #33ff93
+  }
+
+  footer{
+    height: 100px;
+    position: fixed;
+    bottom: 0;
+    background: rgba(20, 27, 40, 0.9);
+    display: none;
+    padding: 10px 5px;
+  }
+
+
+  footer .wrap-input{
+    margin: 5px 10px;
+  }
+
+  footer .wrap-input #as{
+    position: absolute;
+    visibility: hidden;
+  }
+
+  footer .wrap-input #as + .switch{
+    transition: all .2s ease-in 0s;
+    width: 50px;
+    height: 8px;
+    background: #ddd;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    border-radius: 5px;
+  }
+
+  footer .wrap-input #as + .switch:after{
+    transition: all .2s ease-out 0s;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #888;
+    border-radius: 50%;
+    top: 0;
+    left: -10px;
+    margin-top: -12%;
+  }
+
+  footer .wrap-input #as:checked + .switch:after{
+    left: calc(100% - 10px);
+    background: #33ff93;
+  }
+
+  footer .wrap-input .switch-label{
+    vertical-align: middle;
+    margin: 0 0 0 15px;
+  }
+
+  </style>
+
+</head>
+<body>
+  <header id="header"></header>
+
+  <section id="tweet">
+    <!-- This content will be managed by React. -->
+  </section>
+
+  <div id="opt"></div>
+  <footer id="footer"></footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript" src="bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function() {
+      $('#bar').on('click', function() {
+        $('nav').slideToggle(200);
+      });
+
+      $('#opt').on('click', function() {
+        $('footer').slideToggle(200);
+        $(this).toggleClass('active');
+      })
+    });
+  </script>
+</body>
+</html>
