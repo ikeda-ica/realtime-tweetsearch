@@ -1,7 +1,7 @@
 {
-  "name": "Node.js Sample",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-sample",
-  "logo": "https://node-js-sample.herokuapp.com/node.png",
-  "keywords": ["node", "express", "static"]
+  "name": "Twitter RealTime Search",
+  "description": "Trace Timeline Now",
+  "repository": "https://github.com/ikeda-ica/Realtime-Tweetsearch",
+  "logo": "https://github.com/ikeda-ica/Realtime-Tweetsearch/assets/apple-touch-icon.png",
+  "keywords": ["node", "react", "express", "socket.io"]
 }
