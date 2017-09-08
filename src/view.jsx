@@ -53,7 +53,7 @@ class Tweet extends React.Component {
         <li>
           <a href={url}>
             <img src={tweet.profile_image_url} className="thumb" />
-            <span className="inner">{tweet.text}</span>
+            <span className="inner">{tweet.text}<br />{tweet.created_at}</span>
           </a>
         </li>
       );
