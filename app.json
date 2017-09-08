@@ -2,6 +2,6 @@
   "name": "Twitter RealTime Search",
   "description": "Trace Timeline Now",
   "repository": "https://github.com/ikeda-ica/Realtime-Tweetsearch",
-  "logo": "https://github.com/ikeda-ica/Realtime-Tweetsearch/blob/master/assets/apple-touch-icon.png",
+  "logo": "https://raw.githubusercontent.com/ikeda-ica/Realtime-Tweetsearch/master/assets/apple-touch-icon.png",
   "keywords": ["node", "react", "express", "socket.io"]
 }
