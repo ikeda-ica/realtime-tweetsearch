@@ -45,6 +45,7 @@ client.stream('statuses/filter', { track: txt }, function (stream) {
 }
 
 app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/aseets'));
 app.set('views', __dirname + '/views');
 
 http.listen(port, function () {
