@@ -2,10 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
-  // メインとなるJavaScriptファイル（エントリーポイント）
   entry: './src/view.jsx',
   target: "node",
-  // ファイルの出力設定
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
@@ -14,7 +12,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx$/,
       exclude: /node_modules/,
-      loader: 'babel-loader', // babel でも可能
+      loader: 'babel-loader',
       query: {
         presets: ['es2015', 'react'],
       },

@@ -5,7 +5,7 @@ import footer from './footer.jsx'
 import opt from './opt.jsx'
 import $ from 'jquery';
 
-var socket = io();
+const socket = io();
 
 class Tweet extends React.Component {
   constructor(props) {
