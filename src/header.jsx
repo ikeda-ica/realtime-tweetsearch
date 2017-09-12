@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-var socket = io();
+const socket = io();
 
 class Form extends React.Component {
   constructor(props) {
